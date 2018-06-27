@@ -4,8 +4,7 @@ const fs = require('fs');
 const os = require('os');
 var user = os.userInfo();
 
-//fs.appendFileSync('Greetings.txt', 'Hello '+user.username);
+const notes = require('./notes.js');
+var res = notes.addition(23, 33);
 
-fs.appendFileSync('Greetings.txt', `Hello ${user.username}`);
-
-
+console.log(res);
