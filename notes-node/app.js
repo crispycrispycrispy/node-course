@@ -13,13 +13,20 @@ console.log('Command:', command);
 console.log('Yargs:', argv);
 
 if(command == 'add'){
-    notes.addNote(argv.title, argv.body);
+    var note = notes.addNote(argv.title, argv.body);
+    if(note) console.log('Note created\n', `Title: ${note.title}`, `Body: ${note.body}`);
+    else console.log('Duplicates found');
 }else if(command == 'list'){
     notes.getAll();
 }else if(command == 'read'){
-    notes.readNote(argv.title);
+    var resp_note = notes.readNote(argv.title);
+    console.log(resp_note);
+    var msg = (_.isEmpty(resp_note)) ? 'Note does not exist' : `Title: ${resp_note.title} Body: ${resp_note.body}`;
+    console.log(msg);
 }else if(command == 'remove'){
-    notes.removeNote(argv.title);
+    var is_removed = notes.removeNote(argv.title);
+    var msg = is_removed ? 'Note removed' : 'Note does not exist';
+    console.log(msg);
 }else{
     console.log('Operation not found');
 }
