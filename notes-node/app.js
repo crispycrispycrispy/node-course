@@ -1,16 +1,36 @@
-console.log('Starting app');
-
 const fs = require('fs');
 const _ = require('lodash');
 const yargs = require('yargs');
 
 const notes = require('./notes.js');
 
-const argv = yargs.argv;
+const title_options = {
+    describe: 'Title of note',
+    demand: true,
+    alias: 't'
+};
+const body_options = {
+    describe: 'Body of note',
+    demand: true,
+    alias: 'b'
+};
+
+const argv = yargs
+    .command('add', 'Add a new note', {
+        title:title_options,
+        body:body_options
+    })
+    .command('list','List all notes')
+    .command('remove', 'Remove note', {
+        title:title_options
+    })
+    .command('read', 'Read a single note', {
+        title:title_options
+    })
+    .help()
+    .argv;
 var command = argv._[0];
 console.log('Command:', command);
-//console.log('Process:', process.argv);
-console.log('Yargs:', argv);
 
 if(command == 'add'){
     var note = notes.addNote(argv.title, argv.body);
@@ -20,7 +40,6 @@ if(command == 'add'){
     notes.getAll();
 }else if(command == 'read'){
     var resp_note = notes.readNote(argv.title);
-    console.log(resp_note);
     var msg = (_.isEmpty(resp_note)) ? 'Note does not exist' : `Title: ${resp_note.title} Body: ${resp_note.body}`;
     console.log(msg);
 }else if(command == 'remove'){
