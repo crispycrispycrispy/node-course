@@ -1,3 +1,4 @@
+
 var getUser = (id, callback) => {
     var user = {
         id : id,
@@ -9,3 +10,4 @@ var getUser = (id, callback) => {
 getUser(10, (user) => {
     console.log(user);
 })
+
