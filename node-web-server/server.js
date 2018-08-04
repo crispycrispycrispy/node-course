@@ -2,8 +2,10 @@ const express = require('express');
 
 var app = express();
 
+// serve up webpages in a directory
 app.use(express.static(__dirname + "/public"));
 
+//serve up html or json
 app.get('/', (req, res) => {
     // res.send('<h1>Hello Express!</h1>');
     res.send({
